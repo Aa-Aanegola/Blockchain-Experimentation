@@ -41,11 +41,8 @@ def isPrime(n, k):
     return True
 
 
-def generateKey(len):
-    if len <= 4:
-        print("Key of length less than 4 can't be created...")
-        return
-    
+def generatePrimes(len):
+
     lowerBound = 2 << (len-1)
     upperBound = 2 << (len)
 
@@ -60,6 +57,18 @@ def generateKey(len):
         if isPrime(randNum, 10) and randNum != p:
             q = randNum
     
-    print(p, q)
+    yield (p, q)
+
+
+def generateKey(len):
+    
+    if len <= 4:
+        print("Key of length less than 4 can't be created...")
+        return
+
+    (p, q) = generatePrimes(len)
+    phi = (p - 1) * (q - 1) 
+    
+    
 
 generateKey(10)
