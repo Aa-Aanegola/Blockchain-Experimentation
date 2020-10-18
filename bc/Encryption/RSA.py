@@ -1,6 +1,9 @@
 import math
 import random
 
+def inverseModulo(num,mod): 
+  return 0 if num == 0 else 1 if mod % num == 0 else mod - inverseModulo(mod % num, num) * mod // num
+
 
 def millerRabin(n, d):
     
@@ -73,13 +76,15 @@ def generateKey(len):
     phi = (p - 1) * (q - 1) 
 
     e = -1
-    lowerBound = 2 << (len // 2)
+    lowerBound = 2 << (len // 4)
     upperBound = 2 << len
     while e == -1:
       randNum = random.randint(lowerBound+1, upperBound-1)
       if coPrime(randNum, phi):
         e = randNum   
     
-    print(e, phi)
+    d = inverseModulo(e, phi)
+    
+    print(d, e, (d*e)%phi, phi)
 
 generateKey(10)
