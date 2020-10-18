@@ -31,7 +31,7 @@ def isPrime(n, k):
         return True
     
     d = n-1
-    while d%2 == 0:
+    while d % 2 == 0:
         d //= 2
     
     for i in range(0, k):
@@ -42,16 +42,24 @@ def isPrime(n, k):
 
 
 def generateKey(len):
+    if len <= 4:
+        print("Key of length less than 4 can't be created...")
+        return
+    
     lowerBound = 2 << (len-1)
     upperBound = 2 << (len)
 
     p, q = -1, -1
     
     while p == -1:
-        randNum = random.randint(lb+1, ub-1)
-        if isPrime(randNum):
+        randNum = random.randint(lowerBound+1, upperBound-1)
+        if isPrime(randNum, 10):
             p = randNum
     while q == -1:
-        randNum = random.randint(lb+1, ub-1)
-        if isPrime(randNum) and randNum != p:
+        randNum = random.randint(lowerBound+1, upperBound-1)
+        if isPrime(randNum, 10) and randNum != p:
             q = randNum
+    
+    print(p, q)
+
+generateKey(10)
