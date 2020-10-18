@@ -57,8 +57,11 @@ def generatePrimes(len):
         if isPrime(randNum, 10) and randNum != p:
             q = randNum
     
-    yield (p, q)
+    return (p, q)
 
+def coPrime(num1, num2):
+
+    return math.gcd(num1, num2) == 1
 
 def generateKey(len):
     
@@ -66,9 +69,17 @@ def generateKey(len):
         print("Key of length less than 4 can't be created...")
         return
 
-    (p, q) = generatePrimes(len)
+    p, q = generatePrimes(len)
     phi = (p - 1) * (q - 1) 
+
+    e = -1
+    lowerBound = 2 << (len // 2)
+    upperBound = 2 << len
+    while e == -1:
+      randNum = random.randint(lowerBound+1, upperBound-1)
+      if coPrime(randNum, phi):
+        e = randNum   
     
-    
+    print(e, phi)
 
 generateKey(10)
