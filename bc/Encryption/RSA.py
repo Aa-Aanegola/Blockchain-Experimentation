@@ -85,6 +85,9 @@ def generateKey(len):
     
     d = inverseModulo(e, phi)
     
-    print(d, e, (d*e)%phi, phi)
+    return {
+            "sk": (n, d),
+            "pk": (n, e)
+            }
 
 generateKey(10)
